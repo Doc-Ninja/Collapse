@@ -19,10 +19,10 @@ typedef int bool;
 
 
 //Simulation parameters
-#define SIZE 128
+#define SIZE 2048
 #define A_HORIZON 0.01
-#define STEP_LIMIT 5
-#define TIME_STRIDE 1
+#define STEP_LIMIT 10000
+#define TIME_STRIDE 10
 /****************************
 netCDF parameters and defines
 ****************************/

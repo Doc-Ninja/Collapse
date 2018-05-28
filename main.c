@@ -30,7 +30,7 @@ int main(){
 	t += dt;
 	
 	//main cycle
-	for (t_step = 1; (t_step <= STEP_LIMIT)&&(!Horizon_con(A)); t_step++) {
+	for (t_step = 1; (t_step <= STEP_LIMIT)&&(Horizon_con(A)); t_step++) {
 		printf("ITERATION: %d\n", t_step);
 		evolve(x, A, delta, Phi, Pi, dt);
 		data_stamp(t_step, t, A, delta, Phi, Pi);
@@ -40,6 +40,8 @@ int main(){
 
 	//closing the open files
 	close_all();
+	if (t_step > STEP_LIMIT)
+	  printf("CYCLE LIMIT!");
 	getchar();
     return 0;
 }

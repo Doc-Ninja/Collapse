@@ -6,7 +6,6 @@ This file contains the equations to evolve the system
 
 //function to compute the coefficients for the derivative in Phi dot (A exp(-delta) Pi)
 double Phi_dot_PRE (double A, double delta, double Pi){
-	printf("%g\n", Pi);
     double PRE= A*exp(-delta)*Pi;
     return PRE;
 }
@@ -53,9 +52,9 @@ double Pi_dot_LB (double h, double L, double C, double R, double RR, double x){
     double PHI_dot= pow(tan(x),1.0-d)*(-2.0*L -3.0*C +6.0*R -1.0*RR)/(6.0*h);
     return PHI_dot;
 }
-
+// this function computes Pi dot in the origin based on the fields in the following positions
 double Pi_dot_LLB (double h, double C, double R, double RR, double RRR, double x){
-    double PHI_dot= pow(tan(x),1.0-d)*(-11.0*C +18.0*R -9.0*RR +2.0*RRR)/(6.0*h);
+    double PHI_dot= (18.0*R -9.0*RR +2.0*RRR)/11.0;
     return PHI_dot;
 }
 
@@ -65,7 +64,7 @@ double Pi_dot_RB (double h, double LL, double L, double C, double R, double x){
 }
 
 double Pi_dot_RRB (double h, double LLL, double LL, double L, double C, double x){
-    double PHI_dot= pow(tan(x),1.0-d)*(-2.0*LLL +9.0*LL -18.0*L +11.0*C)/(6.0*h);
+	double PHI_dot = 0.0;
     return PHI_dot;
 }
 
