@@ -33,8 +33,8 @@ void A_Solver(double* x, double* Phi, double* Pi, double* A) {
 
 //Functions to compute Phi_dot and Pi_dot over all the array
 double* Phi_dot_FULL(double* x, double* A, double* delta, double* Pi) {
-	static double Phi_DOT[SIZE];
-	double PRE[SIZE];
+	double* Phi_DOT = calloc(SIZE, sizeof(double));
+	double* PRE = calloc(SIZE, sizeof(double));
 	double h = x[1];
 	int i;
 	for (i = 0; i < SIZE; i++) {
@@ -47,11 +47,12 @@ double* Phi_dot_FULL(double* x, double* A, double* delta, double* Pi) {
 	}
 	Phi_DOT[SIZE - 2] = Phi_dot_RB(h, PRE[SIZE - 4], PRE[SIZE - 3], PRE[SIZE - 2], PRE[SIZE - 1]);
 	Phi_DOT[SIZE - 1] = Phi_dot_RRB(h, PRE[SIZE - 4], PRE[SIZE - 3], PRE[SIZE - 2], PRE[SIZE - 1]);
+	free(PRE);
 	return Phi_DOT;
 }
 double* Pi_dot_FULL(double* x, double* A, double* delta, double* Phi) {
-	static double Pi_DOT[SIZE];
-	double PRE[SIZE];
+	double* Pi_DOT = calloc(SIZE, sizeof(double));
+	double* PRE = calloc(SIZE, sizeof(double));
 	double h = x[1];
 	int i;
 	for (i = 0; i < SIZE; i++) {
@@ -65,6 +66,7 @@ double* Pi_dot_FULL(double* x, double* A, double* delta, double* Phi) {
 	Pi_DOT[SIZE - 1] = Pi_dot_RRB(h, PRE[SIZE - 4], PRE[SIZE - 3], PRE[SIZE - 2], PRE[SIZE - 1], x[SIZE - 1]);
 	Pi_DOT[0] = Pi_dot_LLB(h, PRE[0], Pi_DOT[1], Pi_DOT[2], Pi_DOT[3], x[0]);
 
+	free(PRE);
 	return Pi_DOT;
 }
 
@@ -72,8 +74,8 @@ double* Pi_dot_FULL(double* x, double* A, double* delta, double* Phi) {
 void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double dt) {
 	//declarations
 	int i;
-	double tempPhi[SIZE];
-	double tempPi[SIZE];
+	double* tempPhi = calloc(SIZE, sizeof(double));
+	double* tempPi = calloc(SIZE, sizeof(double));
 
 	//computation of the first RK4 step coefficients
 	double *kPhi1 = Phi_dot_FULL(x, A, delta, Pi);
@@ -121,7 +123,16 @@ void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double
 		Phi[i] = Phi[i] + dt * (kPhi1[i] + 2.0*kPhi2[i] + 2.0*kPhi3[i] + kPhi4[i]) / 6.0;
 		Pi[i] = Pi[i] + dt * (kPi1[i] + 2.0*kPi2[i] + 2.0*kPi3[i] + kPi4[i]) / 6.0;
 	}
-
+	free(kPhi1);
+	free(kPhi2);
+	free(kPhi3);
+	free(kPhi4);
+	free(kPi1);
+	free(kPi2);
+	free(kPi3);
+	free(kPi4);
+	free(tempPhi);
+	free(tempPi);
 }
 
 //function to find the minimum entry in an array
@@ -137,13 +148,14 @@ int minpos(double *a) {
 
 //function to compute the time step
 double dt_cal(double h, double* A, double* delta) {
-	double temp_courant[SIZE];
+	double* temp_courant = calloc(SIZE, sizeof(double));
 	double dtp;
 	int i;
 	for (i = 0; i < SIZE; i++) {
 		temp_courant[i] = fabs(exp(delta[i])*h / A[i]);
 	}
 	double courant_con = temp_courant[minpos(temp_courant)];
+	free(temp_courant);
 	dtp = 0.25f * courant_con;
 	return dtp;
 }

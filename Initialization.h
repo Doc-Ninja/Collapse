@@ -9,6 +9,7 @@
 double* initialize_x();
 void initialization_1(double *x, double *A, double *delta, double *Phi, double *Pi);
 void initialization_custom(double *x, double *A, double *delta, double *Phi, double *Pi);
+void initialize_fields(double *x, double *A, double *delta, double *Phi, double *Pi);
 
 
 

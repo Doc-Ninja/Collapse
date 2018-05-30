@@ -7,6 +7,9 @@
 
 #include "Parameters.h"
 
+//net CDF error handling
+#define ERR(e) {printf("Error: %s\n", nc_strerror(e)); exit(EXIT_FAILURE);}
+
 void initialize_files(double *x);
 void data_stamp(int t_step, double t, double* A, double* delta, double* Phi, double* Pi);
 void close_all();

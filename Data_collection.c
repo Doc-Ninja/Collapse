@@ -1,5 +1,7 @@
 #include "Data_collection.h"
 
+//extern int SIZE;
+
 int ncid, x_dimid, t_dimid, A_varid, delta_varid, Phi_varid, Pi_varid;
 int x_varid, t_varid;
 int dimids[NDIMS];

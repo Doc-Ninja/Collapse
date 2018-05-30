@@ -12,26 +12,35 @@ typedef int bool;
 // dimension
 #define d 3.0
 
-// initialization parameters
-#define eps 45.0
-#define sigma 1/16.0
+#define TIME_STRIDE 100
 
 
+int type;
+double eps;
+double sigma;
+const char* file;
 
-//Simulation parameters
 #define SIZE 2048
-#define A_HORIZON 0.01
-#define STEP_LIMIT 10000
-#define TIME_STRIDE 10
+//int SIZE;
+double A_HORIZON;
+int STEP_LIMIT;
+
+void load_param();
+void f_init();
+void p_init();
+
+
 /****************************
 netCDF parameters and defines
 ****************************/
 
-//error handling
-#define ERR(e) {printf("Error: %s\n", nc_strerror(e)); exit(EXIT_FAILURE);}
+
 
 //dimension defines
 #define NDIMS 2
+
+
+
 
 
 #endif // PARAMETERS_H_INCLUDED

@@ -1,9 +1,15 @@
 #include "Initialization.h"
 
+extern double eps;
+extern double sigma;
+extern int type;
+extern const char* start_file;
+//extern int SIZE;
+
 //function to initialize the coordinate array
 double* initialize_x(){
     int i;
-    static double x[SIZE];
+	double *x = calloc(SIZE,sizeof(double));
     for(i=0; i<SIZE; i++){
         x[i]=(i*M_PI)/(2.0*(SIZE-1));
     }
@@ -24,3 +30,15 @@ void initialization_1(double *x, double *A, double *delta, double *Phi, double *
 //function to input a custom starting setup
 void initialization_custom(double *x, double *A, double *delta, double *Phi, double *Pi){
 }
+
+//function containing the fields initialization and deciding which one to use
+void initialize_fields(double *x, double *A, double *delta, double *Phi, double *Pi) {
+	if (type == 0)
+		initialization_custom(x, A, delta, Phi, Pi);
+	else if (type == 1)
+		initialization_1(x, A, delta, Phi, Pi);
+
+	//free(start_file);
+}
+
+
