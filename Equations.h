@@ -27,4 +27,8 @@ double A_prime (double x, double A, double Phi, double Pi);
 //A computation Function
 double delta_prime (double x, double Phi, double Pi);
 
+//Constraint equation
+double Con1(double A_future, double A_past, double dt);
+double Con2(double x, double A, double delta, double Phi, double Pi);
+
 #endif // EQUATIONS_H_INCLUDED

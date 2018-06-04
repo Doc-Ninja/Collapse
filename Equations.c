@@ -32,7 +32,8 @@ double Phi_dot_RB (double h, double LL, double L, double C, double R){
 }
 
 double Phi_dot_RRB (double h, double LLL, double LL, double L, double C){
-    double PHI_dot= (-2.0*LLL +9.0*LL -18.0*L +11.0*C)/(6.0*h);
+    //double PHI_dot= (-2.0*LLL +9.0*LL -18.0*L +11.0*C)/(6.0*h);
+	double PHI_dot = 0.0;
     return PHI_dot;
 }
 
@@ -80,4 +81,14 @@ double A_prime (double x, double A, double Phi, double Pi){
 double delta_prime (double x, double Phi, double Pi){
     double delta_PRIME = -sin(2.0*x)*(pow(Phi,2.0)+pow(Pi,2.0))/2.0;
     return delta_PRIME;
+}
+
+//functions for the 2 parts of the constraint
+double Con1(double A_future, double A_past, double dt) {
+	double A_dot = (A_future - A_past) / dt;
+	return A_dot;
+}
+double Con2(double x, double A, double delta, double Phi, double Pi) {
+	double A_sq_pt = sin(2.0*x)*pow(A, 2.0)*exp(-delta)*Phi*Pi;
+	return A_sq_pt;
 }

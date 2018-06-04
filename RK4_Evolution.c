@@ -68,6 +68,41 @@ double* Pi_dot_FULL(double* x, double* A, double* delta, double* Phi) {
 	return Pi_DOT;
 }
 
+//variables to store A and dt in the past
+double A_past[SIZE] = { 0 };
+double A_copy[SIZE] = { 0 };
+double dt_past;
+
+//Function to update the stored values for the Constrain computing
+void Con_past(double * A, double dt, double t, double *t_past) {
+	int i;
+	for (i = 0; i < SIZE; i++) {
+		A_past[i] = A_copy[i];
+		A_copy[i] = A[i];
+	}
+	dt_past = dt;
+	(*t_past) = t;
+}
+
+//functions to compute the 2 parts of the constraint over the entire array and their sum
+void Con1_FULL(double* A, double dt, double Con[3][SIZE]) {
+	double h = dt + dt_past;
+	int i;
+	for (i = 0; i < SIZE; i++)
+		Con[0][i] = Con1(A[i], A_past[i], h);
+}
+void Con2_FULL(double*x, double* A, double* delta, double* Phi, double* Pi, double Con[3][SIZE]) {
+	int i;
+	for (i = 0; i < SIZE; i++)
+		Con[1][i] = Con2(x[i], A[i], delta[i], Phi[i], Pi[i]);
+}
+void Con3_FULL(double Con[3][SIZE]) {
+	int i;
+	for (i = 0; i < SIZE; i++)
+		Con[2][i] = Con[0][i] + Con[1][i];
+}
+
+
 //function that evolves all the fields by 1 time step
 void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double dt) {
 	//declarations
