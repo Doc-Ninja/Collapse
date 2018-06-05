@@ -16,6 +16,8 @@ typedef int bool;
 // initialization parameters
 #define eps 55.0
 #define sigma 1/16.0
+//0 for custom, 1 for gaussian on Pi
+#define initialization 1
 
 //Simulation parameters
 #define SIZE 1024
@@ -32,15 +34,15 @@ netCDF/data collection  parameters and defines
 #define NDIMS 2
 
 //Enabling/disabling files
-#define EXTRA_PROBE true
-#define PROBE true
+#define EXTRA_PROBE false
+#define PROBE false
 #define BIGFILE true
-#define CHECKPOINT true
-#define CONSTRAINT true
+#define CHECKPOINT false
+#define CONSTRAINT false
 
 //ALL file Time and space strides
-#define TIME_STRIDE 100
-#define SPACE_STRIDE 100
+#define TIME_STRIDE 1
+#define SPACE_STRIDE 1
 #define B_SIZE ((SIZE-1)/SPACE_STRIDE)+1
 
 //Time Stride for probe files

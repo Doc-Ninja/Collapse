@@ -11,18 +11,19 @@
 int main(){
 	//initializaion of variables, fields and files
 	int t_step = 0;
-	double t = 0.0;
-	double t_past = 0.0;
+	double t;
 	double dt = 0.0;
-    double* x=initialize_x();
-    double h=x[1];
+	double x[SIZE];
     double A[SIZE];
     double delta[SIZE];
     double Phi[SIZE];
     double Pi[SIZE];
 	double Constr[3][SIZE] = { 0 };
-    initialization_1(x, A, delta, Phi, Pi);
+	initialize_vars(x, A, delta, Phi, Pi, &t);
+	double h = x[1];
+	double t_past = t;
 	initialize_files(x);
+
 
 	//first data collection
 	data_stamp(t_step, t, x, A, delta, Phi, Pi, Constr, t_past);
