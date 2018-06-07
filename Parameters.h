@@ -14,15 +14,15 @@ typedef int bool;
 #define d 3.0
 
 // initialization parameters
-#define eps 55.0
+#define eps 42.4
 #define sigma 1/16.0
 //0 for custom, 1 for gaussian on Pi
 #define initialization 1
 
 //Simulation parameters
-#define SIZE 1024
-#define A_HORIZON 0.1
-#define STEP_LIMIT 1000
+#define SIZE 4096
+#define A_HORIZON 0.05
+#define STEP_LIMIT 60000
 
 /*********************************************
 netCDF/data collection  parameters and defines
@@ -38,11 +38,11 @@ netCDF/data collection  parameters and defines
 #define PROBE false
 #define BIGFILE true
 #define CHECKPOINT false
-#define CONSTRAINT false
+#define CONSTRAINT true
 
 //ALL file Time and space strides
-#define TIME_STRIDE 1
-#define SPACE_STRIDE 1
+#define TIME_STRIDE 50
+#define SPACE_STRIDE 50
 #define B_SIZE ((SIZE-1)/SPACE_STRIDE)+1
 
 //Time Stride for probe files
@@ -55,8 +55,8 @@ netCDF/data collection  parameters and defines
 #define X_PROBE 5
 
 //space and time stride for the constraint file
-#define C_TIME_STRIDE 100
-#define C_SPACE_STRIDE 100
+#define C_TIME_STRIDE 50
+#define C_SPACE_STRIDE 50
 #define C_SIZE  ((SIZE-1)/C_SPACE_STRIDE)+1
 
 //Time steps beetween checkpoints

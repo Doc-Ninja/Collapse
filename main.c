@@ -51,7 +51,7 @@ int main(){
 		double hpos_x;
 		hpos_n = minpos(A);
 		hpos_x = x[hpos_n];
-		fprintf(report, "Horizon found at x[%d] = %f \n Cycles elapsed: %d", hpos_n, hpos_x, t_step);
+		fprintf(report, "Horizon found at x[%d] = %f \nCycles elapsed: %d\nStarting eps: %f", hpos_n, hpos_x, t_step, eps);
 		fclose(report);
 	}
 	getchar();
