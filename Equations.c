@@ -71,15 +71,19 @@ double Pi_dot_RRB(double h, double LLL, double LL, double L, double C, double x)
 
 //function to compute A prime, no derivatives involved
 double A_prime(double x, double A, double Phi, double Pi) {
-	double A_PRIME = -sin(2.0*x)*A*(pow(Phi, 2.0) + pow(Pi, 2.0)) / 2.0;
+	/*double A_PRIME = -sin(2.0*x)*A*(pow(Phi, 2.0) + pow(Pi, 2.0)) / 2.0;
 	if (A != 1.0)
-		A_PRIME += 2.0*(d - 2.0 + 2.0*pow(sin(x), 2.0)) * (1.0 - A) / (sin(2.0*x));
+		A_PRIME += 2.0*(d - 2.0 + 2.0*pow(sin(x), 2.0)) * (1.0 - A) / (sin(2.0*x));*/
+	double A_PRIME = - sin(x)*cos(x)*A*(pow(Phi, 2.0) + pow(Pi, 2.0));
+	if (A != 1.0)
+		A_PRIME += (d - 2.0 + 2 * pow(sin(x), 2.0))*(1 - A) / (sin(x)*cos(x));
 	return A_PRIME;
 }
 
 //function to compute delta prime, no derivatives involved
 double delta_prime(double x, double Phi, double Pi) {
-	double delta_PRIME = -sin(2.0*x)*(pow(Phi, 2.0) + pow(Pi, 2.0)) / 2.0;
+	//double delta_PRIME = -sin(2.0*x)*(pow(Phi, 2.0) + pow(Pi, 2.0)) / 2.0;
+	double delta_PRIME = -sin(x)*cos(x)*(pow(Phi, 2.0) + pow(Pi, 2.0));
 	return delta_PRIME;
 }
 

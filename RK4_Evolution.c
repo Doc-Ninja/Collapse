@@ -85,18 +85,18 @@ void Con_past(double * A, double dt, double t, double *t_past) {
 }
 
 //functions to compute the 2 parts of the constraint over the entire array and their sum
-void Con1_FULL(double* A, double dt, double Con[3][SIZE]) {
+void Con1_FULL(double* A, double dt, double **Con) {
 	double h = dt + dt_past;
 	int i;
 	for (i = 0; i < SIZE; i++)
 		Con[0][i] = Con1(A[i], A_past[i], h);
 }
-void Con2_FULL(double*x, double* A, double* delta, double* Phi, double* Pi, double Con[3][SIZE]) {
+void Con2_FULL(double*x, double* A, double* delta, double* Phi, double* Pi, double **Con) {
 	int i;
 	for (i = 0; i < SIZE; i++)
 		Con[1][i] = Con2(x[i], A[i], delta[i], Phi[i], Pi[i]);
 }
-void Con3_FULL(double Con[3][SIZE]) {
+void Con3_FULL(double **Con) {
 	int i;
 	for (i = 0; i < SIZE; i++)
 		Con[2][i] = Con[0][i] + Con[1][i];
@@ -187,10 +187,8 @@ double dt_cal(double h, double* A, double* delta) {
 bool Horizon_con(double* A) {
 	bool b;
 	double min_A = A[minpos(A)];
-	if (min_A < A_HORIZON) {
+	if (min_A < A_HORIZON) 
 		b = false;
-		printf("Horizon Found!");
-	}
 	else
 		b = true;
 	return b;

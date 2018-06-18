@@ -13,16 +13,20 @@ int main(){
 	int t_step = 0;
 	double t;
 	double dt = 0.0;
-	double x[SIZE];
-    double A[SIZE];
-    double delta[SIZE];
-    double Phi[SIZE];
-    double Pi[SIZE];
-	double Constr[3][SIZE] = { 0 };
+	double *x = calloc(SIZE, sizeof(double));
+    double *A = calloc(SIZE, sizeof(double));
+    double *delta = calloc(SIZE, sizeof(double));
+    double *Phi = calloc(SIZE, sizeof(double));
+    double *Pi = calloc(SIZE, sizeof(double));
+	//double Constr[3][SIZE] = { 0 };
+	double **Constr = (double **)calloc(3, sizeof(double*));
+	for (int i_c = 0; i_c < 3; i_c++) Constr[i_c] = (double *)calloc(SIZE, sizeof(double));
+	
 	initialize_vars(x, A, delta, Phi, Pi, &t);
 	double h = x[1];
 	double t_past = t;
 	initialize_files(x);
+	
 
 
 	//first data collection
@@ -46,6 +50,7 @@ int main(){
 	if (t_step > STEP_LIMIT)
 	  printf("CYCLE LIMIT!");
 	if (!(Horizon_con(A))){
+		printf("Horizon Found!");
 		FILE* report = fopen("Output/Report.txt", "w");
 		int hpos_n;
 		double hpos_x;
@@ -54,6 +59,13 @@ int main(){
 		fprintf(report, "Horizon found at x[%d] = %f \nCycles elapsed: %d\nStarting eps: %f", hpos_n, hpos_x, t_step, eps);
 		fclose(report);
 	}
-	getchar();
+	//getchar();
+	free(x);
+	free(A);
+	free(delta);
+	free(Pi);
+	free(Phi);
+	for (int i_c = 0; i_c < 3; i_c++) free(Constr[i_c]);
+	free(Constr);
     return 0;
 }

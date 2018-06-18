@@ -209,7 +209,7 @@ void initialize_extra(double* x) {
 }
 
 //function to write on all the different files
-void data_stamp(int t_step, double t, double* x, double* A, double* delta, double* Phi, double* Pi, double Con[3][SIZE], double t_past) {
+void data_stamp(int t_step, double t, double* x, double* A, double* delta, double* Phi, double* Pi, double **Con, double t_past) {
 	if ((t_step%TIME_STRIDE == 0) && BIGFILE)
 		data_stamp_bigfile(t_step, t, A, delta, Phi, Pi);
 	if (t_step%PROBE_STRIDE == 0) {
@@ -277,7 +277,7 @@ void data_stamp_probe(int t_step, double t, double* A, double* delta, double* Ph
 }
 
 //function to write on the constraint file
-void data_stamp_con(int t_step, double Con[3][SIZE], double t_past) {
+void data_stamp_con(int t_step, double **Con, double t_past) {
 	size_t start[NDIMS], count[NDIMS], start_t[1];
 	ptrdiff_t stride[NDIMS], map[NDIMS];
 	start[0] = ((t_step-1) / C_TIME_STRIDE)-1;

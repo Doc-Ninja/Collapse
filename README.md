@@ -6,6 +6,8 @@ This Program uses netCDF libraries to store data on file, please download the la
 
 CHANGELOG
 
+v 0.3.2: Rewriting of the equations in an equivalent form (no effect on the results), moved all the data arrays to the heap, added the parameter N to quickly write SIZE as 2^N +1.
+
 v 0.3.1: Fixed a mistake in the A prime equation, added starting epsilon and cycles elapsed to the report.txt file (created when an horizon is formed).
 
 v 0.3.0: Input update: implemented the option to load a custom input for the fields, simply rename a checkpoint or final file to start.nc and put it into the Input folder, rememeber to set the corresponding option in the Parameters.h file, if the gridsize of the input data does not match the gridsize set for the simulation, the function will silently interpolate linearly or subsample.

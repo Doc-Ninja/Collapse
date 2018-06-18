@@ -17,9 +17,9 @@ int minpos(double *a);
 double dt_cal(double h, double* A, double* delta);
 bool Horizon_con(double* A);
 void Con_past(double * A, double dt, double t, double *t_past);
-void Con1_FULL(double* A, double dt, double Con[3][SIZE]);
-void Con2_FULL(double*x, double* A, double* delta, double* Phi, double* Pi, double Con[3][SIZE]);
-void Con3_FULL(double Con[3][SIZE]);
+void Con1_FULL(double* A, double dt, double **Con);
+void Con2_FULL(double*x, double* A, double* delta, double* Phi, double* Pi, double **Con);
+void Con3_FULL(double **Con);
 
 
 
