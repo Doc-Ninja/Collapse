@@ -45,28 +45,28 @@ double Pi_dot_PRE(double x, double A, double delta, double Phi) {
 
 //Functions to compute Pi dot, 4-point precision, with special stencils near the boundaries
 double Pi_dot(double h, double LL, double L, double R, double RR, double x) {
-	double PHI_dot = pow(tan(x), 1.0 - d)*(LL - 8.0*L + 8.0*R - RR) / (12.0*h);
-	return PHI_dot;
+	double PI_dot = pow(tan(x), 1.0 - d)*(LL - 8.0*L + 8.0*R - RR) / (12.0*h);
+	return PI_dot;
 }
 
 double Pi_dot_LB(double h, double L, double C, double R, double RR, double x) {
-	double PHI_dot = pow(tan(x), 1.0 - d)*(-2.0*L - 3.0*C + 6.0*R - 1.0*RR) / (6.0*h);
-	return PHI_dot;
+	double PI_dot = pow(tan(x), 1.0 - d)*(-2.0*L - 3.0*C + 6.0*R - 1.0*RR) / (6.0*h);
+	return PI_dot;
 }
 // this function computes Pi dot in the origin based on the fields in the following positions
 double Pi_dot_LLB(double h, double C, double R, double RR, double RRR, double x) {
-	double PHI_dot = (18.0*R - 9.0*RR + 2.0*RRR) / 11.0;
-	return PHI_dot;
+	double PI_dot = (18.0*R - 9.0*RR + 2.0*RRR) / 11.0;
+	return PI_dot;
 }
 
 double Pi_dot_RB(double h, double LL, double L, double C, double R, double x) {
-	double PHI_dot = pow(tan(x), 1.0 - d)*(1.0*LL - 6.0*L + 3.0*C + 2.0*R) / (6.0*h);
-	return PHI_dot;
+	double PI_dot = pow(tan(x), 1.0 - d)*(1.0*LL - 6.0*L + 3.0*C + 2.0*R) / (6.0*h);
+	return PI_dot;
 }
 
 double Pi_dot_RRB(double h, double LLL, double LL, double L, double C, double x) {
-	double PHI_dot = 0.0;
-	return PHI_dot;
+	double PI_dot = 0.0;
+	return PI_dot;
 }
 
 //function to compute A prime, no derivatives involved

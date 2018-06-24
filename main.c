@@ -20,7 +20,8 @@ int main(){
     double *Pi = calloc(SIZE, sizeof(double));
 	//double Constr[3][SIZE] = { 0 };
 	double **Constr = (double **)calloc(3, sizeof(double*));
-	for (int i_c = 0; i_c < 3; i_c++) Constr[i_c] = (double *)calloc(SIZE, sizeof(double));
+	int i_c;
+	for (i_c = 0; i_c < 3; i_c++) Constr[i_c] = (double *)calloc(SIZE, sizeof(double));
 	
 	initialize_vars(x, A, delta, Phi, Pi, &t);
 	double h = x[1];
@@ -65,7 +66,7 @@ int main(){
 	free(delta);
 	free(Pi);
 	free(Phi);
-	for (int i_c = 0; i_c < 3; i_c++) free(Constr[i_c]);
+	for (i_c = 0; i_c < 3; i_c++) free(Constr[i_c]);
 	free(Constr);
     return 0;
 }
