@@ -17,13 +17,13 @@ typedef int bool;
 #define eps 40.0
 #define sigma 1/16.0
 //0 for custom, 1 for gaussian on Pi
-#define initialization 0
+#define initialization 1
 
 //Simulation parameters
 #define N 12
 #define SIZE ((1<<N)+1)
-#define A_HORIZON 0.001
-#define STEP_LIMIT 250000
+#define A_HORIZON 0.01
+#define STEP_LIMIT 60000
 
 /*********************************************
 netCDF/data collection  parameters and defines

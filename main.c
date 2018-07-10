@@ -45,7 +45,9 @@ int main(){
 		Con3_FULL(Constr);
 		data_stamp(t_step, t, x, A, delta, Phi, Pi, Constr, t_past);		
 	}
+	//saving the final configuration
 	data_stamp_final(t, x, A, delta, Phi, Pi);
+
 	//closing the open files
 	close_all();
 	if (t_step > STEP_LIMIT)
@@ -60,7 +62,6 @@ int main(){
 		fprintf(report, "Horizon found at x[%d] = %f \nCycles elapsed: %d\nStarting eps: %f", hpos_n, hpos_x, t_step, eps);
 		fclose(report);
 	}
-	//getchar();
 	free(x);
 	free(A);
 	free(delta);

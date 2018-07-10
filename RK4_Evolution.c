@@ -107,15 +107,27 @@ void Con3_FULL(double **Con) {
 void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double dt) {
 	//declarations
 	int i;
-	double tempPhi[SIZE];
-	double tempPi[SIZE];
+	double* tempPhi = calloc(SIZE, sizeof(double));
+	double* tempPi = calloc(SIZE, sizeof(double));
+	double* tempkPhi;
+	double* tempkPi;
+	double* kPhi1 = calloc(SIZE, sizeof(double));
+	double* kPhi2 = calloc(SIZE, sizeof(double));
+	double* kPhi3 = calloc(SIZE, sizeof(double));
+	double* kPhi4 = calloc(SIZE, sizeof(double));
+	double* kPi1 = calloc(SIZE, sizeof(double));
+	double* kPi2 = calloc(SIZE, sizeof(double));
+	double* kPi3 = calloc(SIZE, sizeof(double));
+	double* kPi4 = calloc(SIZE, sizeof(double));
 
 	//computation of the first RK4 step coefficients
-	double *kPhi1 = Phi_dot_FULL(x, A, delta, Pi);
-	double *kPi1 = Pi_dot_FULL(x, A, delta, Phi);
+	tempkPhi = Phi_dot_FULL(x, A, delta, Pi);
+	tempkPi = Pi_dot_FULL(x, A, delta, Phi);
 	for (i = 0; i < SIZE; i++) {
-		tempPhi[i] = Phi[i] + dt * kPhi1[i] / 2.0;
-		tempPi[i] = Pi[i] + dt * kPi1[i] / 2.0;
+		kPhi1[i] = dt * tempkPhi[i];
+		kPi1[i] = dt * tempkPi[i];
+		tempPhi[i] = Phi[i] + kPhi1[i] * 0.5;
+		tempPi[i] = Pi[i] + kPi1[i] * 0.5;
 	}
 
 	//Updating A and delta 
@@ -123,11 +135,13 @@ void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double
 	Delta_Solver(x, tempPhi, tempPi, delta);
 
 	//computation of the second RK4 step coefficients
-	double *kPhi2 = Phi_dot_FULL(x, A, delta, tempPi);
-	double *kPi2 = Pi_dot_FULL(x, A, delta, tempPhi);
+	tempkPhi = Phi_dot_FULL(x, A, delta, tempPi);
+	tempkPi = Pi_dot_FULL(x, A, delta, tempPhi);
 	for (i = 0; i < SIZE; i++) {
-		tempPhi[i] = Phi[i] + dt * kPhi2[i] / 2.0;
-		tempPi[i] = Pi[i] + dt * kPi2[i] / 2.0;
+		kPhi2[i] = dt * tempkPhi[i];
+		kPi2[i] = dt * tempkPi[i];
+		tempPhi[i] = Phi[i] + kPhi2[i] * 0.5;
+		tempPi[i] = Pi[i] + kPi2[i] * 0.5;
 	}
 
 	//Updating A and delta 
@@ -136,12 +150,14 @@ void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double
 
 
 	//computation of the third RK4 step coefficients
-	double *kPhi3 = Phi_dot_FULL(x, A, delta, tempPi);
-	double *kPi3 = Pi_dot_FULL(x, A, delta, tempPhi);
+	tempkPhi = Phi_dot_FULL(x, A, delta, tempPi);
+	tempkPi = Pi_dot_FULL(x, A, delta, tempPhi);
 
 	for (i = 0; i < SIZE; i++) {
-		tempPhi[i] = Phi[i] + dt * kPhi3[i];
-		tempPi[i] = Pi[i] + dt * kPi3[i];
+		kPhi3[i] = dt * tempkPhi[i];
+		kPi3[i] = dt * tempkPi[i];
+		tempPhi[i] = Phi[i] + kPhi3[i];
+		tempPi[i] = Pi[i] + kPi3[i];
 	}
 
 	//Updating A and delta
@@ -149,13 +165,20 @@ void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double
 	Delta_Solver(x, tempPhi, tempPi, delta);
 
 	//computation of the fourth RK4 step coefficients
-	double *kPhi4 = Phi_dot_FULL(x, A, delta, tempPi);
-	double *kPi4 = Pi_dot_FULL(x, A, delta, tempPhi);
+	tempkPhi = Phi_dot_FULL(x, A, delta, tempPi);
+	tempkPi = Pi_dot_FULL(x, A, delta, tempPhi);
 	//updating Phi and Pi
 	for (i = 0; i < SIZE; i++) {
-		Phi[i] = Phi[i] + dt * (kPhi1[i] + 2.0*kPhi2[i] + 2.0*kPhi3[i] + kPhi4[i]) / 6.0;
-		Pi[i] = Pi[i] + dt * (kPi1[i] + 2.0*kPi2[i] + 2.0*kPi3[i] + kPi4[i]) / 6.0;
+		kPhi4[i] = dt * tempkPhi[i];
+		kPi4[i] = dt * tempkPi[i];
+		Phi[i] = Phi[i] + (kPhi1[i] + 2.0*kPhi2[i] + 2.0*kPhi3[i] + kPhi4[i]) / 6.0;
+		Pi[i] = Pi[i] + (kPi1[i] + 2.0*kPi2[i] + 2.0*kPi3[i] + kPi4[i]) / 6.0;
 	}
+
+	//Updating A and delta
+	A_Solver(x, Phi, Pi, A);
+	Delta_Solver(x, Phi, Pi, delta);
+
 
 }
 
