@@ -6,6 +6,8 @@ This Program uses netCDF libraries to store data on file, please download the la
 
 CHANGELOG
 
+v 0.3.4: Closed a ram leak introduced when fixing thecoefficents bug
+
 v 0.3.3: Corrected a major bug causing the RK4 coefficients to be all equal to k4.
 
 v 0.3.2: Rewriting of the equations in an equivalent form (no effect on the results), moved all the data arrays to the heap, added the parameter N to quickly write SIZE as 2^N +1.
