@@ -179,6 +179,17 @@ void evolve(double *x, double *A, double *delta, double *Phi, double *Pi, double
 	A_Solver(x, Phi, Pi, A);
 	Delta_Solver(x, Phi, Pi, delta);
 
+	free(kPhi1);
+	free(kPhi2);
+	free(kPhi3);
+	free(kPhi4);
+	free(kPi1);
+	free(kPi2);
+	free(kPi3);
+	free(kPi4);
+	free(tempPhi);
+	free(tempPi);
+
 
 }
 
