@@ -213,7 +213,7 @@ double dt_cal(double h, double* A, double* delta) {
 		temp_courant[i] = fabs(exp(delta[i])*h / A[i]);
 	}
 	double courant_con = temp_courant[minpos(temp_courant)];
-	dtp = 0.25f * courant_con;
+	dtp = C_COUR* courant_con;
 	return dtp;
 }
 

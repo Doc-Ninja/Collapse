@@ -22,7 +22,8 @@ double Phi_dot_LB(double h, double L, double C, double R, double RR) {
 }
 
 double Phi_dot_LLB(double h, double C, double R, double RR, double RRR) {
-	double PHI_dot = (-11.0*C + 18.0*R - 9.0*RR + 2.0*RRR) / (6.0*h);
+	//double PHI_dot = (-11.0*C + 18.0*R - 9.0*RR + 2.0*RRR) / (6.0*h);
+  double PHI_dot=0; 
 	return PHI_dot;
 }
 
